@@ -4,7 +4,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
+
+import static ru.exercise01.util.MakeUrlList.MakeUrlList;
 
 /**
  * Created by Egor on 18.12.16.
@@ -13,6 +15,8 @@ public class MyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        final String readUrl = request.getParameter("UrlValue");
+        MakeUrlList(readUrl);
         request.getRequestDispatcher("/downloadUrl.jsp").forward(request, response);
 
     }

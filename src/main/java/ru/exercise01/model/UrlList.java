@@ -7,16 +7,16 @@ import java.util.List;
  * Created by Egor on 18.12.16.
  */
 public class UrlList {
-    private List<String> urlList;
+    private static List<String> urlList;
 
-    public List<String> getUrlList() {
+    public static List<String> getUrlList() {
         if (urlList == null) {
             urlList = new ArrayList<>();
         }
         return urlList;
     }
 
-    public void addUrlList(String urlStr) {
+    public static void addUrlList(String urlStr) {
         getUrlList().add(urlStr);
     }
 
