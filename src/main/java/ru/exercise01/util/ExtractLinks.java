@@ -16,12 +16,13 @@ import java.util.regex.Pattern;
 public class ExtractLinks {
 
 
-    private List<Link> linkList;
     final private Pattern tagPattern;
+    final private InputStreamReader inputStreamReader;
+    final private String inUrl;
     final private Pattern linkPattern;
+    private List<Link> linkList;
     private Matcher tagMatcher;
     private Matcher linkMatcher;
-    final private InputStreamReader inputStreamReader;
 
     final private static String tagText = "(?i)<a([^>]+)>(.+?)>";
     final private static String linkText = "\\s*(?i)href\\s*=\\s*(\\\"([^\"]*\\\")|'[^']*'|([^'\">\\s]+))";
@@ -44,10 +45,11 @@ public class ExtractLinks {
     }
 
 
-    public ExtractLinks(InputStreamReader readIn) {
+    public ExtractLinks(InputStreamReader readIn, String inUrl) {
         inputStreamReader = readIn;
         tagPattern = Pattern.compile(tagText);
         linkPattern = Pattern.compile(linkText);
+        this.inUrl = inUrl;
         startWork();
     }
 
@@ -75,7 +77,11 @@ public class ExtractLinks {
                 outStr = matcher.group(1).substring(1, matcher.group(1).length() - 1);
                 if (outStr != null && !outStr.isEmpty()) {
                     final Link link = new Link();
-                    link.setLinks(outStr);
+                    if ((outStr.length() > 5) && (!outStr.substring(0, 5).equals("http:"))) {
+                        link.setLinks(inUrl+"/"+outStr);
+
+                    } else
+                        link.setLinks(outStr);
                     getLinkList().add(link);
                 }
             }

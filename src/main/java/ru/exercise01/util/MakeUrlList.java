@@ -38,7 +38,7 @@ public class MakeUrlList {
             GetConn.connect();
 
             InputStreamReader ReadIn = new InputStreamReader(GetConn.getInputStream());
-            ExtractLinks extractLinks = new ExtractLinks(ReadIn);
+            ExtractLinks extractLinks = new ExtractLinks(ReadIn,inUrl);
             setList(extractLinks.getLinkList());
 
         }
