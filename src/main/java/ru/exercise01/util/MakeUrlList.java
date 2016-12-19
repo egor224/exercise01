@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -18,7 +19,17 @@ public class MakeUrlList {
 
     private  static final Logger LOG = getLogger(MakeUrlList.class);
 
-    public static void MakeUrlList(final String inUrl){
+    private List<String> list ;
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public void setList(List<String> list) {
+        this.list = list;
+    }
+
+    public  MakeUrlList(final String inUrl){
         try {
 
             URL PageUrl = new URL(inUrl);
@@ -26,9 +37,10 @@ public class MakeUrlList {
             GetConn.connect();
 
             InputStreamReader ReadIn = new InputStreamReader(GetConn.getInputStream());
-             ExtractLinks extractLinks = new ExtractLinks(ReadIn);
-             extractLinks.getLinkList();
-         }
+            ExtractLinks extractLinks = new ExtractLinks(ReadIn);
+            setList(extractLinks.getLinkList());
+
+        }
         catch (IOException io) {
             Arrays.stream(io.getStackTrace()).forEach(ee->LOG.info(ee.toString()));
 
