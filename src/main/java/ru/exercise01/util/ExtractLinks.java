@@ -1,5 +1,7 @@
 package ru.exercise01.util;
 
+import ru.exercise01.model.Link;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +16,7 @@ import java.util.regex.Pattern;
 public class ExtractLinks {
 
 
-    private List<String> linkList;
+    private List<Link> linkList;
     final private Pattern tagPattern;
     final private Pattern linkPattern;
     private Matcher tagMatcher;
@@ -24,7 +26,7 @@ public class ExtractLinks {
     final private static String tagText = "(?i)<a([^>]+)>(.+?)>";
     final private static String linkText = "\\s*(?i)href\\s*=\\s*(\\\"([^\"]*\\\")|'[^']*'|([^'\">\\s]+))";
 
-    public List<String> getLinkList() {
+    public List<Link> getLinkList() {
         if (linkList == null) {
             linkList = new ArrayList<>();
         }
@@ -70,11 +72,13 @@ public class ExtractLinks {
 
             Matcher matcher = getLinkMatcher(inMatcher.group(1));
             if (matcher.find()) {
-                outStr = matcher.group(1).substring(1,matcher.group(1).length()-1);
-                if (outStr != null && !outStr.isEmpty())
-                    getLinkList().add(outStr);
+                outStr = matcher.group(1).substring(1, matcher.group(1).length() - 1);
+                if (outStr != null && !outStr.isEmpty()) {
+                    final Link link = new Link();
+                    link.setLinks(outStr);
+                    getLinkList().add(link);
+                }
             }
-
         }
     }
 

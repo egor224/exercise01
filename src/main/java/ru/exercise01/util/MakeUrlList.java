@@ -2,6 +2,7 @@ package ru.exercise01.util;
 
 
 import org.slf4j.Logger;
+import ru.exercise01.model.Link;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,13 +20,13 @@ public class MakeUrlList {
 
     private  static final Logger LOG = getLogger(MakeUrlList.class);
 
-    private List<String> list ;
+    private List<Link> list ;
 
-    public List<String> getList() {
+    public List<Link> getList() {
         return list;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<Link> list) {
         this.list = list;
     }
 

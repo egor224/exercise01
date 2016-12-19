@@ -17,7 +17,9 @@ public class MyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String readUrl = request.getParameter("UrlValue");
         final MakeUrlList makeUrlList =  new MakeUrlList(readUrl);
-        request.setAttribute("listLinks",makeUrlList.getList());
+      //  final Link linkLists = new Link();
+      //  linkLists.setLinks(makeUrlList.getList());
+        request.setAttribute("linkLists",makeUrlList.getList());
         request.getRequestDispatcher("/downloadUrl.jsp").forward(request, response);
 
     }
